@@ -10,7 +10,7 @@ export class TypeQuestionsService {
   async create(createTypeQuestionDto: CreateTypeQuestionDto) {
     const data = await this.prisma.typeQuestions.create({
       data: {
-        dificult: createTypeQuestionDto.dificult,
+        difficulty: createTypeQuestionDto.difficulty,
         level: createTypeQuestionDto.level,
         life: createTypeQuestionDto.life,
         points: createTypeQuestionDto.points,

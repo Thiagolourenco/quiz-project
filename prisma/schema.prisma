@@ -14,20 +14,40 @@ datasource db {
 }
 
 model User {
-  id Int @default(autoincrement()) @id
-  email String @unique
-  name String?
-  password String?
+  id          Int               @id @default(autoincrement())
+  email       String            @unique
+  name        String?
+  password    String?
   profile_img String?
-  points Int?
-  level Int?
+  points      Int?
+  level       Int?
 }
 
 model TypeQuestions {
-  id Int @default(autoincrement()) @id
-  level Int
-  life Int
-  points Int
-  dificult Int 
+  id           Int              @id @default(autoincrement())
+  level        Int
+  life         Int
+  points       Int
+  difficulty   Int        // Corrigi o nome do campo para 'difficulty'
   type_question String?
+  questions    Questions[] // Relacionamento inverso com Questions
+}
+
+model Questions {
+  id              Int           @id @default(autoincrement())
+  typeQuestionsID Int
+  type_questions  TypeQuestions @relation(fields: [typeQuestionsID], references: [id])
+  name            String?
+  type            String?
+  image           String?
+  options         Options[]     @relation("QuestionsToOptions")
+  point           Int?
+  difficulty      Int?
+}
+
+model Options {
+  id              Int           @id @default(autoincrement())
+  questions       Questions[]    @relation("QuestionsToOptions")
+  name            String?
+  correct         Boolean?
 }
